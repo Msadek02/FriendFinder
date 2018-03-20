@@ -224,3 +224,92 @@
 
     <!-- Latest compiled and minified JavaScript (USED FOR THE MODAL) -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <script>
+        //  Global Variable Declaration
+        var allFieldsCompleted
+
+        $(document).ready(function() {
+          // event listner for submission
+          $('#submitButton').on('click', function() {
+              // check if all the user fields are completed
+            checkIfComplete(function() {
+
+              if(allFieldsCompleted) {
+                collectInputs();
+              }
+              else {
+                alert('Please complete all fields before submitting!');
+              }
+
+            });
+          });
+        });
+
+        function checkIfComplete(callback) {
+
+          // check through all the questions 
+          var questionsCompleted;
+        $('.chosen-select').each(function(){
+          if ( $(this).val() == "" ){
+            questionsCompleted = false;
+          }
+        })
+
+
+        .promise().done(function(){
+
+          if(questionsCompleted == false){
+            allFieldsCompleted = false;
+          }
+
+          else if( $('#formName').val().trim() == "") {
+            allFieldsCompleted = false; 
+          }
+
+          else if( $('#formImage').val().trim() == "") {
+            allFieldsCompleted = false;
+          }
+
+          else{
+            allFieldsCompleted = true;
+          }
+            // Fire off callback (to counter async behavior of $.each)
+          callback();
+
+        });
+      }
+
+        function collectInputs() {
+
+            var newFriend = {
+              name: $('#formName').val().trim(),
+              photo: $('#formImage').val().trim(),
+              scores: []
+            };
+
+            // loop through quetions to get scores
+            var scoresArray = [];
+            $('.chosen-select').each(function(){
+              scoresArray.push( parseInt( $(this).val() ) );  // parse input value as integer
+            })
+
+            .promise().done(function(){
+
+              newFriend.scores = scoresArray;
+                //  update the newfriend to friend.js and get back the best match
+              var currentURL = window.location.origin;
+              $.post(currentURL + "/api/friends", newFriend, function(data){
+
+                  $('#matchName').text(data.name);
+                  $('#matchImg').attr('src', data.photo);
+
+                  $('#resultsModal').modal('toggle');
+
+              });
+
+            });         
+            
+        }
+
+    </script>
