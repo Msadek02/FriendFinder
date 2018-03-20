@@ -1,0 +1,23 @@
+{
+  "name": "friendfinder0204",
+  "version": "1.0.0",
+  "description": "friendfinder",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Msadek02/friendfinder0204.git"
+  },
+  "keywords": [
+    "friends"
+  ],
+  "author": "mostafa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Msadek02/friendfinder0204/issues"
+  },
+  "homepage": "https://github.com/Msadek02/friendfinder0204#readme"
+}
