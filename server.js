@@ -11,7 +11,7 @@ var htmlRoutes = require('./app/routing/htmlRoutes.js');
 
 // Set up Express App
 var app = express();
-var PORT = process.env.PORT || 8080;
+var PORT = process.env.PORT || 3000;
 
 
 
